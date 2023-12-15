@@ -21,7 +21,7 @@ app.get("/",(req,res)=>{
 
 // For signup
 app.post("/signup",async (req,res)=>{
-    const{email,password,confirm_password}=req.body;
+    const{name,email,mobile,password,confirm_password}=req.body;
     const user_exist=await UserModel.findOne({email});
     if(user_exist)
     {
@@ -31,7 +31,7 @@ app.post("/signup",async (req,res)=>{
         if(password===confirm_password)  // verifying password matching or not
     {
         bcrypt.hash(password, 8, async function(err, hash) {
-            await UserModel.create({email,password:hash});
+            await UserModel.create({name,email,mobile,password:hash});
             return res.json({message:"Signup Successfull"});
 
     })
